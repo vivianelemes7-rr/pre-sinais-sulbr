@@ -1,0 +1,63 @@
+### Pré-Sinais de Ciclogênese - Testes de API
+### Use a extensão "REST Client" do VS Code para executar estas requisições
+
+@baseUrl = http://localhost:3000/api
+
+### 1. Health Check - Verificar se o servidor está rodando
+GET {{baseUrl}}/health
+
+###
+
+### 2. Listar todas as estações meteorológicas
+GET {{baseUrl}}/estacoes
+
+###
+
+### 3. Criar uma nova estação
+POST {{baseUrl}}/estacoes
+Content-Type: application/json
+
+{
+  "codigo_inmet": "A004",
+  "cidade": "Rio Grande",
+  "latitude": -32.0347,
+  "longitude": -52.0986
+}
+
+###
+
+### 4. Obter dados meteorológicos da estação 1 (Porto Alegre)
+### Busca dados em tempo real do OpenMeteo e armazena no banco
+GET {{baseUrl}}/dados-estacao/1
+
+###
+
+### 5. Obter dados meteorológicos da estação 2 (Curitiba)
+GET {{baseUrl}}/dados-estacao/2
+
+###
+
+### 6. Obter dados meteorológicos da estação 3 (Florianópolis)
+GET {{baseUrl}}/dados-estacao/3
+
+###
+
+### 7. Listar todos os ciclones registrados
+GET {{baseUrl}}/ciclones
+
+###
+
+### 8. Obter pré-sinais do ciclone 1 (Furacão Catarina)
+GET {{baseUrl}}/pre-sinais/1
+
+###
+
+### 9. Obter pré-sinais do ciclone 2 (Tempestade Yakecan)
+GET {{baseUrl}}/pre-sinais/2
+
+###
+
+### 10. Obter pré-sinais do ciclone 3 (Ciclone Bomba)
+GET {{baseUrl}}/pre-sinais/3
+
+###
