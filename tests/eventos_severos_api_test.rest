@@ -1,0 +1,32 @@
+@baseURL = http://localhost:3000
+@id_do_evento = 1
+
+### Lista todos os eventos severos
+GET {{baseURL}}/eventos-severos
+Accept: application/json
+
+### Cria novo evento severo
+POST {{baseURL}}/eventos-severos
+Content-Type: application/json
+
+{
+    "tipo_evento": "Tempestade de Granizo",
+    "intensidade": "Severa",
+    "descricao": "Granizo do tamanho de bolas de tênis, danos em telhados.",
+    "data_ocorrencia": "2023-10-25 14:30:00",
+    "latitude": -29.169,
+    "longitude": -51.514
+}
+
+### Tentar criar evento sem data (Erro é esperado)
+POST {{baseURL}}/eventos-severos
+Content-Type: application/json
+
+{
+    "tipo_evento": "Vendaval Isolado",
+    "intensidade": "Moderada"
+}
+
+### Deletar evento severo
+DELETE {{baseURL}}/eventos-severos/{{id_do_evento}}
+Accept: application/json

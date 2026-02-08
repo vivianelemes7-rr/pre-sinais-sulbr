@@ -1,0 +1,19 @@
+@baseURL = http://localhost:3000
+@id_do_indice = 1
+
+### Lista índices climáticos
+GET {{baseURL}}/indices-climaticos
+Accept: application/json
+
+### Cria novo índice (Ex: SOI - Oscilação Sul)
+POST {{baseURL}}/indices-climaticos
+Content-Type: application/json
+
+{
+    "nome": "SOI",
+    "valor": -1.5,
+    "data_medicao": "2023-10-01"
+}
+
+### Deleta um índice
+DELETE {{baseURL}}/indices-climaticos/{{id_do_indice}}

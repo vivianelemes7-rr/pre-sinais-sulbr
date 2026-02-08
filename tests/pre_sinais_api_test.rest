@@ -1,0 +1,38 @@
+@baseURL = http://localhost:3000
+@id_ciclone_existente = 1
+@id_estacao_existente = 1
+@id_pre_sinal = 1
+
+### 1. Listar Pré-Sinais (Deve vir vazio no início)
+GET {{baseURL}}/pre-sinais
+Accept: application/json
+
+### 2. Criar um Pré-Sinal (Queda de Pressão)
+POST {{baseURL}}/pre-sinais
+Content-Type: application/json
+
+{
+    "ciclone_id": {{id_ciclone_existente}},
+    "estacao_id": {{id_estacao_existente}},
+    "tipo_sinal": "Queda Brusca de Pressão",
+    "valor_medido": 992.50,
+    "data_hora_registro": "2023-10-24 08:00:00",
+    "tempo_antecedencia_horas": 24
+}
+
+### 3. Tentar criar com ID errado (Erro esperado: Ciclone não existe)
+POST {{baseURL}}/pre-sinais
+Content-Type: application/json
+
+{
+    "ciclone_id": 999,
+    "estacao_id": {{id_estacao_existente}},
+    "tipo_sinal": "Vento Forte",
+    "valor_medido": 100.00,
+    "data_hora_registro": "2023-10-24 09:00:00",
+    "tempo_antecedencia_horas": 12
+}
+
+### 4. Deletar o Pré-Sinal
+DELETE {{baseURL}}/pre-sinais/{{id_pre_sinal}}
+Accept: application/json

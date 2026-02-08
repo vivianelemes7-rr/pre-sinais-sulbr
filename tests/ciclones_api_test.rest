@@ -1,0 +1,38 @@
+@baseURL = http://localhost:3000
+@id_do_ciclone = 1
+
+### Lista todos os ciclones
+GET {{baseURL}}/ciclones
+Accept: application/json
+
+### Cria novo ciclone
+POST {{baseURL}}/ciclones
+Content-Type: application/json
+
+{
+    "classificacao": "Ciclone Extratropical",
+    "data_inicio": "2023-06-15T00:00:00.000Z",
+    "regiao": "Sul"
+}
+
+### Validação do erro
+POST {{baseURL}}/ciclones
+Content-Type: application/json
+
+{
+    "classificacao": ""
+}
+
+### Buscar ciclone por ID
+GET {{baseURL}}/ciclones/{{id_do_ciclone}}
+
+### Atualizar ciclone
+PUT {{baseURL}}/ciclones/{{id_do_ciclone}}
+Content-Type: application/json
+
+{
+    "classificacao": "Tempestade Subtropical"
+}
+
+### Deletar ciclone
+DELETE {{baseURL}}/ciclones/{{id_do_ciclone}}

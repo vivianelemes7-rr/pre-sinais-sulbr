@@ -1,0 +1,16 @@
+@baseURL = http://localhost:3000
+
+### Lista todas as estações
+GET {{baseURL}}/estacoes
+Accept: application/json
+
+### Cria nova estação
+POST {{baseURL}}/estacoes
+Content-Type: application/json
+
+{
+    "codigo_inmet": "A001",
+    "cidade": "Porto Alegre",
+    "latitude": -30.0277,
+    "longitude": -51.5005
+}
