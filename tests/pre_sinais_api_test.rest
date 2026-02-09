@@ -36,3 +36,7 @@ Content-Type: application/json
 ### 4. Deletar o Pré-Sinal
 DELETE {{baseURL}}/pre-sinais/{{id_pre_sinal}}
 Accept: application/json
+
+### 5. Buscar Sinais só do Ciclone 1
+GET {{baseURL}}/pre-sinais/ciclone/{{id_ciclone_existente}}
+Accept: application/json

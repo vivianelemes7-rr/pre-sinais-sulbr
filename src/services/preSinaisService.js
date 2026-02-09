@@ -5,8 +5,12 @@ class PreSinaisService {
         return await PreSinaisModel.findAll();
     }
 
+    // Método novo
+    static async getByCiclone(cicloneId) {
+        return await PreSinaisModel.findByCiclone(cicloneId);
+    }
+
     static async create(dados) {
-        // Validação básica: a qual ciclone e qual estação isso pertence?
         if (!dados.ciclone_id || !dados.estacao_id || !dados.tipo_sinal) {
             throw new Error("Ciclone ID, Estação ID e Tipo de Sinal são obrigatórios.");
         }
