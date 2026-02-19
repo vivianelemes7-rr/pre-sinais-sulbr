@@ -1,6 +1,3 @@
-### Pré-Sinais de Ciclogênese - Testes de API
-### Use a extensão "REST Client" do VS Code para executar estas requisições
-
 @baseUrl = http://localhost:3000/api
 
 ### 1. Health Check - Verificar se o servidor está rodando
