@@ -10,7 +10,6 @@ class PreSinaisController {
         }
     }
 
-    // Método novo
     static async getByCiclone(req, res) {
         try {
             const sinais = await PreSinaisService.getByCiclone(req.params.id);
@@ -38,6 +37,15 @@ class PreSinaisController {
             res.json({ message: 'Pré-sinal removido.' });
         } catch (error) {
             res.status(400).json({ error: error.message });
+        }
+    }
+
+    static async buscarTempoReal(req, res) {
+        try {
+            const dadosClimaticos = await PreSinaisService.buscarTempoReal();
+            res.json(dadosClimaticos);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
         }
     }
 }

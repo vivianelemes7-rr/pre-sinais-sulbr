@@ -1,44 +1,38 @@
-const db = require('../config/database');
+const PreSinaisModel = require('../models/preSinaisModel');
 
-class PreSinaisModel {
-    // Busca todos
-    static async findAll() {
-        const query = `
-            SELECT p.*, c.classificacao AS nome_ciclone, e.cidade AS nome_estacao 
-            FROM pre_sinais p
-            JOIN ciclone_evento c ON p.ciclone_id = c.id
-            JOIN estacoes e ON p.estacao_id = e.id
-        `;
-        const [rows] = await db.query(query);
-        return rows;
+class PreSinaisService {
+    static async getAll() {
+        return await PreSinaisModel.findAll();
     }
 
-    // Busca filtrada por Ciclone (NOVO!)
-    static async findByCiclone(cicloneId) {
-        const query = `
-            SELECT p.*, c.classificacao AS nome_ciclone, e.cidade AS nome_estacao 
-            FROM pre_sinais p
-            JOIN ciclone_evento c ON p.ciclone_id = c.id
-            JOIN estacoes e ON p.estacao_id = e.id
-            WHERE p.ciclone_id = ?
-        `;
-        const [rows] = await db.query(query, [cicloneId]);
-        return rows;
+    static async getByCiclone(cicloneId) {
+        return await PreSinaisModel.findByCiclone(cicloneId);
     }
 
     static async create(dados) {
-        const { ciclone_id, estacao_id, tipo_sinal, valor_medido, data_hora_registro, tempo_antecedencia_horas } = dados;
-        const [result] = await db.query(
-            `INSERT INTO pre_sinais (ciclone_id, estacao_id, tipo_sinal, valor_medido, data_hora_registro, tempo_antecedencia_horas) VALUES (?, ?, ?, ?, ?, ?)`,
-            [ciclone_id, estacao_id, tipo_sinal, valor_medido, data_hora_registro, tempo_antecedencia_horas]
-        );
-        return result.insertId;
+        if (!dados.ciclone_id || !dados.estacao_id || !dados.tipo_sinal) {
+            throw new Error("Ciclone ID, Estação ID e Tipo de Sinal são obrigatórios.");
+        }
+        return await PreSinaisModel.create(dados);
     }
 
     static async delete(id) {
-        const [result] = await db.query('DELETE FROM pre_sinais WHERE id = ?', [id]);
-        return result.affectedRows;
+        const deleted = await PreSinaisModel.delete(id);
+        if (deleted === 0) throw new Error("Pré-sinal não encontrado.");
+        return deleted;
+    }
+
+    static async buscarTempoReal() {
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=-29.17&longitude=-51.52&current_weather=true';
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error("Erro ao buscar dados na Open-Meteo");
+        }
+        
+        const data = await response.json();
+        return data.current_weather;
     }
 }
 
-module.exports = PreSinaisModel;
+module.exports = PreSinaisService;

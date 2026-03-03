@@ -40,3 +40,7 @@ Accept: application/json
 ### 5. Buscar Sinais só do Ciclone 1
 GET {{baseURL}}/pre-sinais/ciclone/{{id_ciclone_existente}}
 Accept: application/json
+
+### Busca em Tempo Real da Open-Meteo
+GET http://localhost:3000/pre-sinais/tempo-real
+Accept: application/json
